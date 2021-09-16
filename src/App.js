@@ -14,11 +14,14 @@ function App() {
   useEffect(() => {
     const username = window.prompt('Username: ', 'Anonymous');
     setUsername(username);
+
+    // Pusher initialize
     const pusher = new Pusher(process.env.REACT_APP_KEY, {
       cluster: 'us3',
       encrypted: true
     });
 
+    // Subscribe a channel and bind an event to it
     const channel = pusher.subscribe('my-channel');
     channel.bind('my-event', data => {
       setChats([...chats, data]);
@@ -37,8 +40,6 @@ function App() {
       setText(e.target.value);
     }
   }
-
-  console.log(process.env)
 
   return (
     <div className="App">
